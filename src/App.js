@@ -5,10 +5,8 @@ import TodoList from "./TodoList"
 
 export default function App() {
     return (
-        <>
-            <main className="container">
-                <TodoList />
-            </main> 
-        </>
+        <main className="container">
+            <TodoList />
+        </main> 
     )
 }
