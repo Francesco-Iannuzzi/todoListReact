@@ -3,10 +3,13 @@ import { createRoot } from "react-dom/client";
 import "./styles.css";
 
 import TodoList from "./TodoList";
+import { TodoProvider } from "./Context";
 
 const root = createRoot(document.getElementById("root"));
 root.render(
   <StrictMode>
-    <TodoList />
+    <TodoProvider>
+      <TodoList />
+    </TodoProvider>
   </StrictMode>
 );

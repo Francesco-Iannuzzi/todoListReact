@@ -1,18 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import TodoItem from "./TodoItem";
 import TodoInput from "./TodoInput";
 
+import TodoContext from './Context.js';
+
 export default function TodoList() {
-  const [todos, setTodos] = useState([]);
 
-  function addTodo(todo) {
-    setTodos((prev) => [...prev, todo]);
-  }
-
-  function removeTodo(index) {
-    setTodos((prev) => prev.filter((_, i) => i !== index));
-  }
-
+  const { theme, toggleTheme, addTodo, todos, removeTodo } = useContext(TodoContext);
+  
   return (
     <>
       <h1 className="title">Todo List</h1>

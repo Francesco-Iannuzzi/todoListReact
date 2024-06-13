@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import TodoContext from "./Context";
 
-export default function TodoInput({ addTodo }) {
+export default function TodoInput() {
   const [inputValue, setInputValue] = useState('')
+  const { addTodo } = useContext(TodoContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,9 +23,9 @@ export default function TodoInput({ addTodo }) {
         onChange={(e) => setInputValue(e.target.value)}
         placeholder="Add a new Item"
       />
-        <button type="submit" className="btn btn-primary">
-          Add
-        </button>
+      <button type="submit" className="btn btn-primary">
+        Add
+      </button>
     </form>
   )
 }

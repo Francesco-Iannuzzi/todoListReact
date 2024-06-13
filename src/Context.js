@@ -1,0 +1,33 @@
+import React, { createContext, useState } from "react";
+
+const TodoContext = createContext();
+
+
+export  function TodoProvider({children}) {
+    const [state, setState] = React.useState({
+        todos: [],
+        theme: 'light'
+    })
+    
+    function addTodo(todo) {
+        setState((prev) => ({
+            ...prev,
+            todos: [...prev.todos, todo]
+        }));
+    }
+    
+    function removeTodo(index) {
+        setState((prev) => ({
+            ...prev,
+            todos: prev.todos.filter((_, i) => i !== index)
+        }));
+    }
+
+    return (
+        <TodoContext.Provider  value={{...state, addTodo, removeTodo}}>
+            {children}
+        </TodoContext.Provider>
+    )
+}
+
+export default TodoContext;
