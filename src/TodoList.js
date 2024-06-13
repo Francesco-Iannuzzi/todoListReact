@@ -5,19 +5,9 @@ import TodoInput from "./TodoInput";
 export default function TodoList() {
   const [todos, setTodos] = useState([]);
 
-  // const addTodo = (todo) => {
-  //   console.log('addTdo todo = ',todo);
-  //   setTodos((prev) => [...prev, todo]);
-  // }
-
   function addTodo(todo) {
     setTodos((prev) => [...prev, todo]);
   }
-
-  // const removeTodo = (index) => {
-  //   console.log('removeTodo index = ',index);
-  //   setTodos((prev) => prev.filter((_, i) => i !== index));
-  // }
 
   function removeTodo(index) {
     setTodos((prev) => prev.filter((_, i) => i !== index));

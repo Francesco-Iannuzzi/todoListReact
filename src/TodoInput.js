@@ -2,8 +2,6 @@ import React, { useState } from "react";
 
 export default function TodoInput({ addTodo }) {
   const [inputValue, setInputValue] = useState('')
-  // console.log('inpunt Value = ', inputValue);
-  // console.log('set input Value = ', setInputValue);
 
   const handleSubmit = (e) => {
     e.preventDefault();
