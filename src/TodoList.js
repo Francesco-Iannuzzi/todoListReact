@@ -6,11 +6,12 @@ import TodoContext from './Context.js';
 
 export default function TodoList() {
 
-  const { theme, toggleTheme, addTodo, todos, removeTodo, handleClick } = useContext(TodoContext);
-  
+  const { theme, toggleTheme, addTodo, todos, removeTodo, changeBackground, changeTheme } = useContext(TodoContext);
+
+  const newColor = theme === 'black' ? 'white' : 'black'
   return (
-    <>
-      <button className="mb-4 btn btn-primary" onClick={handleClick}>
+    <div style={{backgroundColor: theme}}>
+      <button className="mb-4 btn btn-primary" onClick={() => changeTheme(newColor)}>
         Change Theme
       </button>
       <h1 className="title">
@@ -27,6 +28,6 @@ export default function TodoList() {
           />
         ))}
       </ul>
-    </>
+    </div>
   )
 }

@@ -23,19 +23,26 @@ export  function TodoProvider({children}) {
         }));
     }
 
-    function handleClick() {
-        let bodyStyle = document.body.style;
-        if (bodyStyle.backgroundColor === 'black') {
-          bodyStyle.backgroundColor = 'white';
-          bodyStyle.color = 'black';
-        } else {
-          bodyStyle.backgroundColor = 'black';
-          bodyStyle.color = 'white';
-        }
+    function changeTheme(color){
+        setState((prev) => ({
+            ...prev,
+            theme: color
+        }))
     }
 
+    // function handleClick() {
+    //     let bodyStyle = document.body.style;
+    //     if (bodyStyle.backgroundColor === 'black') {
+    //       bodyStyle.backgroundColor = 'white';
+    //       bodyStyle.color = 'black';
+    //     } else {
+    //       bodyStyle.backgroundColor = 'black';
+    //       bodyStyle.color = 'white';
+    //     }
+    // }
+
     return (
-        <TodoContext.Provider  value={{...state, addTodo, removeTodo, handleClick}}>
+        <TodoContext.Provider  value={{...state, addTodo, removeTodo, changeTheme}}>
             {children}
         </TodoContext.Provider>
     )
