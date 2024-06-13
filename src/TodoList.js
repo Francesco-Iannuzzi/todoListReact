@@ -6,11 +6,16 @@ import TodoContext from './Context.js';
 
 export default function TodoList() {
 
-  const { theme, toggleTheme, addTodo, todos, removeTodo } = useContext(TodoContext);
+  const { theme, toggleTheme, addTodo, todos, removeTodo, handleClick } = useContext(TodoContext);
   
   return (
     <>
-      <h1 className="title">Todo List</h1>
+      <button className="mb-4 btn btn-primary" onClick={handleClick}>
+        Change Theme
+      </button>
+      <h1 className="title">
+        Todo List
+      </h1>
       <TodoInput addTodo={addTodo} />
       <ul className="list-group">
         {todos.map((todo, index) => (

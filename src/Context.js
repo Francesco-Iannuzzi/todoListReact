@@ -23,8 +23,19 @@ export  function TodoProvider({children}) {
         }));
     }
 
+    function handleClick() {
+        let bodyStyle = document.body.style;
+        if (bodyStyle.backgroundColor === 'black') {
+          bodyStyle.backgroundColor = 'white';
+          bodyStyle.color = 'black';
+        } else {
+          bodyStyle.backgroundColor = 'black';
+          bodyStyle.color = 'white';
+        }
+    }
+
     return (
-        <TodoContext.Provider  value={{...state, addTodo, removeTodo}}>
+        <TodoContext.Provider  value={{...state, addTodo, removeTodo, handleClick}}>
             {children}
         </TodoContext.Provider>
     )
