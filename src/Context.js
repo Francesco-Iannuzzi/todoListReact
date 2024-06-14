@@ -6,7 +6,8 @@ const TodoContext = createContext();
 export function TodoProvider({children}) {
     const [state, setState] = useState({
         todos: {},
-        theme: 'light'
+        theme: 'light',
+        themeText: 'dark'
     })
     
     function addTodo(todo) {
@@ -45,10 +46,11 @@ export function TodoProvider({children}) {
         }));
     }
 
-    function changeTheme(color) {
+    function changeTheme(color, colorText) {
         setState((prev) => ({
             ...prev,
-            theme: color
+            theme: color,
+            themeText: colorText
         }));
     }
 

@@ -6,17 +6,19 @@ import TodoContext from './Context.js';
 
 export default function TodoList() {
   
-    const { theme, addTodo, todos, removeTodo, toggleComplete, changeTheme } = useContext(TodoContext);
+    const { theme, themeText, addTodo, todos, removeTodo, toggleComplete, changeTheme } = useContext(TodoContext);
 
     const newColor = theme === 'black' ? 'white' : 'black';
+
+    const newColorText = themeText === 'white' ? 'black' : 'white';
   
     const todoItems = Object.keys(todos).filter(id => !todos[id].completed);
 
     const completedItems = Object.keys(todos).filter(id => todos[id].completed);
 
     return (
-        <div style={{ backgroundColor: theme }}>
-            <button className="mb-4 btn btn-primary" onClick={() => changeTheme(newColor)}>
+        <div style={{ backgroundColor: theme, color: themeText }}>
+            <button className="mb-4 btn btn-primary" onClick={() => changeTheme(newColor, newColorText)}>
                 Change Theme
             </button>
             <TodoInput addTodo={addTodo} />
