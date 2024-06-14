@@ -3,46 +3,57 @@ import React, { createContext, useState } from "react";
 const TodoContext = createContext();
 
 
-export  function TodoProvider({children}) {
-    const [state, setState] = React.useState({
-        todos: [],
+export function TodoProvider({children}) {
+    const [state, setState] = useState({
+        todos: {},
         theme: 'light'
     })
     
     function addTodo(todo) {
+        const id = new Date().getTime().toString();
         setState((prev) => ({
             ...prev,
-            todos: [...prev.todos, todo]
+            todos: {
+                ...prev.todos,
+                [id]: { 
+                    text: todo, 
+                    completed: false 
+                } 
+            }
         }));
     }
     
-    function removeTodo(index) {
+    function removeTodo(id) {
+        const newTodos = { ...state.todos };
+        delete newTodos[id];
         setState((prev) => ({
             ...prev,
-            todos: prev.todos.filter((_, i) => i !== index)
+            todos: newTodos
         }));
     }
 
-    function changeTheme(color){
+    function toggleComplete(id) {
+        setState((prev) => ({
+            ...prev,
+            todos: {
+                ...prev.todos,
+                [id]: { 
+                    ...prev.todos[id], 
+                    completed: !prev.todos[id].completed 
+                }
+            }
+        }));
+    }
+
+    function changeTheme(color) {
         setState((prev) => ({
             ...prev,
             theme: color
-        }))
+        }));
     }
 
-    // function handleClick() {
-    //     let bodyStyle = document.body.style;
-    //     if (bodyStyle.backgroundColor === 'black') {
-    //       bodyStyle.backgroundColor = 'white';
-    //       bodyStyle.color = 'black';
-    //     } else {
-    //       bodyStyle.backgroundColor = 'black';
-    //       bodyStyle.color = 'white';
-    //     }
-    // }
-
     return (
-        <TodoContext.Provider  value={{...state, addTodo, removeTodo, changeTheme}}>
+        <TodoContext.Provider value={{ ...state, addTodo, removeTodo, toggleComplete, changeTheme }}>
             {children}
         </TodoContext.Provider>
     )
