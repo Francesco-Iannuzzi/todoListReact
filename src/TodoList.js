@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import TodoItem from "./TodoItem";
 import TodoInput from "./TodoInput";
-
 import TodoContext from "./Context.js";
 
 export default function TodoList() {
@@ -19,9 +18,9 @@ export default function TodoList() {
 
   const newColorText = themeText === "white" ? "black" : "white";
 
-  const todoItems = Object.keys(todos).filter((id) => !todos[id].completed);
+  // const completedTodos = todos.filter((todo) => todo.completed);
 
-  const completedItems = Object.keys(todos).filter((id) => todos[id].completed);
+  // const uncompletedTodos = todos.filter((todo) => !todo.completed);
 
   return (
     <div style={{ backgroundColor: theme, color: themeText }}>
@@ -36,11 +35,10 @@ export default function TodoList() {
         <div className="list_todo">
           <h2 className="title">Todo List</h2>
           <ul className="todo_item list-group">
-            {todoItems.map((id) => (
+            {todos.map((todo) => (
               <TodoItem
-                todo={todos[id]}
-                key={id}
-                id={id}
+                todo={todo}
+                key={todo.id}
                 removeTodo={removeTodo}
                 toggleComplete={toggleComplete}
               />
@@ -49,7 +47,7 @@ export default function TodoList() {
         </div>
         <div className="list_done">
           <h2 className="title">Done List</h2>
-          <ul className="done_item list-group">
+          {/* <ul className="done_item list-group">
             {completedItems.map((id) => (
               <TodoItem
                 todo={todos[id]}
@@ -59,7 +57,7 @@ export default function TodoList() {
                 toggleComplete={toggleComplete}
               />
             ))}
-          </ul>
+          </ul> */}
         </div>
       </section>
     </div>

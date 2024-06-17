@@ -1,35 +1,52 @@
 import React, { createContext, useState } from "react";
+import { getTodos } from "./api/todos/get";
+import { postTodo } from "./api/todos/post";
 
 const TodoContext = createContext();
 
 export function TodoProvider({ children }) {
   const [state, setState] = useState({
-    todos: {},
+    todos: [],
     theme: "light",
     themeText: "dark",
   });
 
-  function addTodo(todo) {
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const todos = await getTodos();
+      setState((prev) => ({
+        ...prev,
+        todos,
+      }));
+    };
+    fetchData();
+  }, []);
+
+  async function addTodo(todo) {
     const id = new Date().getTime().toString();
-    setState((prev) => ({
-      ...prev,
-      todos: {
-        ...prev.todos,
-        [id]: {
-          text: todo,
-          completed: false,
-        },
-      },
-    }));
+    const todoToSave = {
+      text: todo,
+      id,
+      completed: false,
+    };
+    const response = await postTodo(todoToSave);
+    if (response.status >= 200 && response.status <= 299) {
+      setState((prev) => ({
+        ...prev,
+        todos: [...prev.todos, todoToSave],
+      }));
+    }
   }
 
-  function removeTodo(id) {
-    const newTodos = { ...state.todos };
-    delete newTodos[id];
-    setState((prev) => ({
-      ...prev,
-      todos: newTodos,
-    }));
+  async function removeTodo(id) {
+    const response = await deleteTodo(id);
+    if (response.status >= 200 && response.status <= 299) {
+      const newTodos = state.todos.filter((todo) => todo.id !== id);
+      setState((prev) => ({
+        ...prev,
+        todos: newTodos,
+      }));
+    }
   }
 
   function toggleComplete(id) {
