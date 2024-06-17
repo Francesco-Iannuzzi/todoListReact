@@ -11,17 +11,14 @@ export default function TodoList() {
     todos,
     removeTodo,
     toggleComplete,
+    completedTodos,
+    uncompletedTodos,
     changeTheme,
   } = useContext(TodoContext);
 
   const newColor = theme === "black" ? "white" : "black";
 
   const newColorText = themeText === "white" ? "black" : "white";
-
-  // const completedTodos = todos.filter((todo) => todo.completed);
-
-  // const uncompletedTodos = todos.filter((todo) => !todo.completed);
-
   return (
     <div style={{ backgroundColor: theme, color: themeText }}>
       <button
@@ -35,7 +32,7 @@ export default function TodoList() {
         <div className="list_todo">
           <h2 className="title">Todo List</h2>
           <ul className="todo_item list-group">
-            {todos.map((todo) => (
+            {uncompletedTodos.map((todo) => (
               <TodoItem
                 todo={todo}
                 key={todo.id}
@@ -47,17 +44,16 @@ export default function TodoList() {
         </div>
         <div className="list_done">
           <h2 className="title">Done List</h2>
-          {/* <ul className="done_item list-group">
-            {completedItems.map((id) => (
+          <ul className="done_item list-group">
+            {completedTodos.map((todo) => (
               <TodoItem
-                todo={todos[id]}
-                key={id}
-                id={id}
+                todo={todo}
+                key={todo.id}
                 removeTodo={removeTodo}
                 toggleComplete={toggleComplete}
               />
             ))}
-          </ul> */}
+          </ul>
         </div>
       </section>
     </div>

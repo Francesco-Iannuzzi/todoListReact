@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 import { getTodos } from "./api/todos/get";
 import { postTodo } from "./api/todos/post";
+import { deleteTodo } from "./api/todos/delete";
 
 const TodoContext = createContext();
 
@@ -9,6 +10,8 @@ export function TodoProvider({ children }) {
     todos: [],
     theme: "light",
     themeText: "dark",
+    uncompletedTodos: [],
+    completedTodos: [],
   });
 
   React.useEffect(() => {
@@ -21,6 +24,14 @@ export function TodoProvider({ children }) {
     };
     fetchData();
   }, []);
+
+  React.useEffect(() => {
+    setState((prev) => ({
+      ...prev,
+      completedTodos: prev.todos.filter((todo) => todo.completed),
+      uncompletedTodos: prev.todos.filter((todo) => !todo.completed),
+    }));
+  }, [state.todos]);
 
   async function addTodo(todo) {
     const id = new Date().getTime().toString();
@@ -50,15 +61,13 @@ export function TodoProvider({ children }) {
   }
 
   function toggleComplete(id) {
+    const findTodo = state.todos.find((todo) => todo.id === id);
     setState((prev) => ({
       ...prev,
-      todos: {
-        ...prev.todos,
-        [id]: {
-          ...prev.todos[id],
-          completed: !prev.todos[id].completed,
-        },
-      },
+      todos: [
+        ...prev.todos.filter((todo) => todo.id !== id),
+        { ...findTodo, completed: !findTodo.completed },
+      ],
     }));
   }
 
