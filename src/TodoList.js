@@ -32,7 +32,7 @@ export default function TodoList() {
         <div className="list_todo">
           <h2 className="title">Todo List</h2>
           <ul className="todo_item list-group">
-            {uncompletedTodos.map((todo) => (
+            {uncompletedTodos?.map((todo) => (
               <TodoItem
                 todo={todo}
                 key={todo.id}
@@ -45,7 +45,7 @@ export default function TodoList() {
         <div className="list_done">
           <h2 className="title">Done List</h2>
           <ul className="done_item list-group">
-            {completedTodos.map((todo) => (
+            {completedTodos?.map((todo) => (
               <TodoItem
                 todo={todo}
                 key={todo.id}

@@ -1,7 +1,5 @@
 import React, { createContext, useState } from "react";
-import { getTodos } from "./api/todos/get";
-import { postTodo } from "./api/todos/post";
-import { deleteTodo } from "./api/todos/delete";
+import { getTodos } from "./api/todos/crudTodo";
 
 const TodoContext = createContext();
 
@@ -14,22 +12,23 @@ export function TodoProvider({ children }) {
     completedTodos: [],
   });
 
+  const fetchData = async () => {
+    const todos = await getTodos();
+    setState((prev) => ({
+      ...prev,
+      todos,
+    }));
+  };
+
   React.useEffect(() => {
-    const fetchData = async () => {
-      const todos = await getTodos();
-      setState((prev) => ({
-        ...prev,
-        todos,
-      }));
-    };
     fetchData();
   }, []);
 
   React.useEffect(() => {
     setState((prev) => ({
       ...prev,
-      completedTodos: prev.todos.filter((todo) => todo.completed),
-      uncompletedTodos: prev.todos.filter((todo) => !todo.completed),
+      completedTodos: prev.todos?.filter((todo) => todo.completed),
+      uncompletedTodos: prev.todos?.filter((todo) => !todo.completed),
     }));
   }, [state.todos]);
 
