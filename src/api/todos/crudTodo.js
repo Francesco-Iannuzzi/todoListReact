@@ -1,10 +1,10 @@
 import { baseApiOptions } from "..";
 
 export const getTodos = async () => {
-  const url = `${baseApiOptions.baseUrl}/all_todos`;
+  const urlGet = `${baseApiOptions.baseUrl}/all_todos`;
 
   try {
-    const response = await fetch(url, {
+    const response = await fetch(urlGet, {
       method: "GET",
     });
     if (!response.ok) {
@@ -19,14 +19,24 @@ export const getTodos = async () => {
   return data.body;
 };
 
-// export const postTodo = async (todo) => {
-//   const response = await fetch(`${baseApiOptions.baseUrl}/todos`, {
-//     method: "POST",
-//     body: JSON.stringify(todo),
-//   });
-//   console.log("POST", response);
-//   return response;
-// };
+export const postTodo = async (todo) => {
+  const urlPost = `${baseApiOptions.baseUrl}/add_todo`;
+
+  try {
+    const response = await fetch(urlPost, {
+      method: "POST",
+      body: JSON.stringify(todo),
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    console.log("Data send:", data);
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+  return data.body;
+};
 
 // export const deleteTodo = async (id) => {
 //   const response = await fetch(`${baseApiOptions.baseUrl}/todos/${id}`, {

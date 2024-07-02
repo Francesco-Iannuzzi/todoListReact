@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { getTodos } from "./api/todos/crudTodo";
+import { getTodos, postTodo } from "./api/todos/crudTodo";
 
 const TodoContext = createContext();
 
@@ -12,6 +12,7 @@ export function TodoProvider({ children }) {
     completedTodos: [],
   });
 
+  // recover data
   const fetchData = async () => {
     const todos = await getTodos();
     setState((prev) => ({
@@ -32,6 +33,7 @@ export function TodoProvider({ children }) {
     }));
   }, [state.todos]);
 
+  // add data
   async function addTodo(todo) {
     const id = new Date().getTime().toString();
     const todoToSave = {
@@ -48,6 +50,7 @@ export function TodoProvider({ children }) {
     }
   }
 
+  // delete data
   async function removeTodo(id) {
     const response = await deleteTodo(id);
     if (response.status >= 200 && response.status <= 299) {
@@ -59,6 +62,7 @@ export function TodoProvider({ children }) {
     }
   }
 
+  // update data
   function toggleComplete(id) {
     const findTodo = state.todos.find((todo) => todo.id === id);
     setState((prev) => ({
@@ -70,6 +74,7 @@ export function TodoProvider({ children }) {
     }));
   }
 
+  // change theme color
   function changeTheme(color, colorText) {
     setState((prev) => ({
       ...prev,
