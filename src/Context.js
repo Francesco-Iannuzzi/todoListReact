@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { getTodos, addTodoDb } from "./api/todos/crudTodo";
+import { getTodos, addTodoDb, deleteTodoDb } from "./api/todos/crudTodo";
 
 const TodoContext = createContext();
 
@@ -35,7 +35,6 @@ export function TodoProvider({ children }) {
 
   // add data item
   async function addTodo(todo) {
-    console.log(todo);
     const todoToSave = {
       text: todo,
       completed: false,
@@ -51,14 +50,16 @@ export function TodoProvider({ children }) {
 
   // delete data
   async function removeTodo(id) {
-    const response = await deleteTodo(id);
-    if (response.status >= 200 && response.status <= 299) {
-      const newTodos = state.todos.filter((todo) => todo.id !== id);
-      setState((prev) => ({
-        ...prev,
-        todos: newTodos,
-      }));
-    }
+    const response = await deleteTodoDb(id);
+
+    const newTodos = state.todos.filter((todo) => todo._id !== id);
+    setState((prev) => ({
+      ...prev,
+      todos: newTodos,
+    }));
+    // if (response.status >= 200 && response.status <= 299) {
+
+    // }
   }
 
   // update data
