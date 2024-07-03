@@ -9,13 +9,13 @@ export default function TodoItem({ todo, removeTodo, toggleComplete }) {
       <div>
         <button
           className="btn btn-danger me-2"
-          onClick={() => removeTodo(todo.id)}
+          onClick={() => removeTodo(todo._id)}
         >
           Remove
         </button>
         <button
           className="btn btn-success"
-          onClick={() => toggleComplete(todo.id)}
+          onClick={() => toggleComplete(todo._id)}
         >
           {todo.completed ? "Undo" : "Done"}
         </button>

@@ -1,10 +1,10 @@
 import { baseApiOptions } from "..";
 
 export const getTodos = async () => {
-  const urlGet = `${baseApiOptions.baseUrl}/all_todos`;
+  const url = `${baseApiOptions.baseUrl}/all_todos`;
 
   try {
-    const response = await fetch(urlGet, {
+    const response = await fetch(url, {
       method: "GET",
     });
     if (!response.ok) {
@@ -12,30 +12,33 @@ export const getTodos = async () => {
     }
     const data = await response.json();
     console.log("Data received from server:", data);
-    return data.body; // Assume that the todos are in the body property
+    return data.body;
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
   }
-  return data.body;
 };
 
-export const postTodo = async (todo) => {
-  const urlPost = `${baseApiOptions.baseUrl}/add_todo`;
+export const addTodoDb = async (todo) => {
+  const url = `${baseApiOptions.baseUrl}/add_todo`;
 
   try {
-    const response = await fetch(urlPost, {
+    const response = await fetch(url, {
       method: "POST",
-      body: JSON.stringify(todo),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ text: todo }),
     });
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-    const data = await response.json();
-    console.log("Data send:", data);
+    const data = await todo;
+    console.log("Data send:", data.text);
+    return data.text;
   } catch (error) {
+    console.log("dentro il catch");
     console.error("There was a problem with the fetch operation:", error);
   }
-  return data.body;
 };
 
 // export const deleteTodo = async (id) => {

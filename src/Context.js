@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { getTodos, postTodo } from "./api/todos/crudTodo";
+import { getTodos, addTodoDb } from "./api/todos/crudTodo";
 
 const TodoContext = createContext();
 
@@ -33,15 +33,14 @@ export function TodoProvider({ children }) {
     }));
   }, [state.todos]);
 
-  // add data
+  // add data item
   async function addTodo(todo) {
-    const id = new Date().getTime().toString();
+    console.log(todo);
     const todoToSave = {
       text: todo,
-      id,
       completed: false,
     };
-    const response = await postTodo(todoToSave);
+    const response = await addTodoDb(todoToSave);
     if (response.status >= 200 && response.status <= 299) {
       setState((prev) => ({
         ...prev,

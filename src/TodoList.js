@@ -35,7 +35,7 @@ export default function TodoList() {
             {uncompletedTodos?.map((todo) => (
               <TodoItem
                 todo={todo}
-                key={todo.id}
+                key={todo._id}
                 removeTodo={removeTodo}
                 toggleComplete={toggleComplete}
               />
@@ -48,7 +48,7 @@ export default function TodoList() {
             {completedTodos?.map((todo) => (
               <TodoItem
                 todo={todo}
-                key={todo.id}
+                key={todo._id}
                 removeTodo={removeTodo}
                 toggleComplete={toggleComplete}
               />
