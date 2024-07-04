@@ -1,5 +1,10 @@
 import React, { createContext, useState } from "react";
-import { getTodos, addTodoDb, deleteTodoDb } from "./api/todos/crudTodo";
+import {
+  getTodos,
+  addTodoDb,
+  deleteTodoDb,
+  toggleTodoCompletedDb,
+} from "./api/todos/crudTodo";
 
 const TodoContext = createContext();
 
@@ -61,16 +66,17 @@ export function TodoProvider({ children }) {
     }
   }
 
-  // update data
-  function toggleComplete(id) {
-    const findTodo = state.todos.find((todo) => todo.id === id);
-    setState((prev) => ({
-      ...prev,
-      todos: [
-        ...prev.todos.filter((todo) => todo.id !== id),
-        { ...findTodo, completed: !findTodo.completed },
-      ],
-    }));
+  // change complete status todo
+  async function toggleComplete(id, completed) {
+    const response = await toggleTodoCompletedDb(id, completed);
+    if (response) {
+      setState((prev) => ({
+        ...prev,
+        todos: prev.todos.map((todo) =>
+          todo._id === id ? { ...todo, completed } : todo
+        ),
+      }));
+    }
   }
 
   // change theme color

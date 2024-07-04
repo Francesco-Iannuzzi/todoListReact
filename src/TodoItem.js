@@ -15,7 +15,7 @@ export default function TodoItem({ todo, removeTodo, toggleComplete }) {
         </button>
         <button
           className="btn btn-success"
-          onClick={() => toggleComplete(todo._id)}
+          onClick={() => toggleComplete(todo._id, !todo.completed)}
         >
           {todo.completed ? "Undo" : "Done"}
         </button>
