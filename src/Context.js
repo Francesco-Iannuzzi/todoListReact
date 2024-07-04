@@ -94,6 +94,18 @@ export function TodoProvider({ children }) {
     }
   }
 
+  async function handleText(text) {
+    const response = await changeTextTodoDb(text);
+    if (response) {
+      setState((prev) => ({
+        ...prev,
+        todos: prev.todos.map((todo) =>
+          todo._id === id ? { ...todo, text } : todo
+        ),
+      }));
+    }
+  }
+
   // change theme color
   function changeTheme(color, colorText) {
     setState((prev) => ({
@@ -112,6 +124,7 @@ export function TodoProvider({ children }) {
         toggleComplete,
         changeTheme,
         enableEdit,
+        handleText,
       }}
     >
       {children}

@@ -5,6 +5,7 @@ export default function TodoItem({
   removeTodo,
   toggleComplete,
   enableEdit,
+  handleText,
 }) {
   return (
     <li className="list-group-item d-flex justify-content-between align-items-center">
@@ -15,7 +16,7 @@ export default function TodoItem({
             type="text"
             value={todo.text}
             id="editText"
-            // onChange={()=> }
+            onChange={() => handleText(todo.text)}
           />
         ) : (
           todo.text
