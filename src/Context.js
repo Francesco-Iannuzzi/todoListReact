@@ -4,6 +4,7 @@ import {
   addTodoDb,
   deleteTodoDb,
   toggleTodoCompletedDb,
+  isEditingTodoDb,
 } from "./api/todos/crudTodo";
 
 const TodoContext = createContext();
@@ -43,6 +44,7 @@ export function TodoProvider({ children }) {
     const todoToSave = {
       text: todo,
       completed: false,
+      isEditing: false,
     };
     const response = await addTodoDb(todoToSave);
     if (response.status >= 200 && response.status <= 299) {
@@ -79,6 +81,19 @@ export function TodoProvider({ children }) {
     }
   }
 
+  // set editing
+  async function enableEdit(id, isEditing) {
+    const response = await isEditingTodoDb(id, isEditing);
+    if (response) {
+      setState((prev) => ({
+        ...prev,
+        todos: prev.todos.map((todo) =>
+          todo._id === id ? { ...todo, isEditing } : todo
+        ),
+      }));
+    }
+  }
+
   // change theme color
   function changeTheme(color, colorText) {
     setState((prev) => ({
@@ -90,7 +105,14 @@ export function TodoProvider({ children }) {
 
   return (
     <TodoContext.Provider
-      value={{ ...state, addTodo, removeTodo, toggleComplete, changeTheme }}
+      value={{
+        ...state,
+        addTodo,
+        removeTodo,
+        toggleComplete,
+        changeTheme,
+        enableEdit,
+      }}
     >
       {children}
     </TodoContext.Provider>

@@ -1,12 +1,35 @@
 import React from "react";
 
-export default function TodoItem({ todo, removeTodo, toggleComplete }) {
+export default function TodoItem({
+  todo,
+  removeTodo,
+  toggleComplete,
+  enableEdit,
+}) {
   return (
     <li className="list-group-item d-flex justify-content-between align-items-center">
       <div style={{ textDecoration: todo.completed ? "line-through" : "none" }}>
-        {todo.text}
+        {todo.isEditing ? (
+          <input
+            className="form-control border border-2"
+            type="text"
+            value={todo.text}
+            id="editText"
+            // onChange={()=> }
+          />
+        ) : (
+          todo.text
+        )}
       </div>
       <div>
+        {!todo.completed && (
+          <button
+            className="btn btn-primary me-2"
+            onClick={() => enableEdit(todo._id, !todo.isEditing)}
+          >
+            Edit
+          </button>
+        )}
         <button
           className="btn btn-danger me-2"
           onClick={() => removeTodo(todo._id)}

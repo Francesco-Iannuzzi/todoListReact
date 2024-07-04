@@ -11,6 +11,7 @@ export default function TodoList() {
     todos,
     removeTodo,
     toggleComplete,
+    enableEdit,
     completedTodos,
     uncompletedTodos,
     changeTheme,
@@ -38,6 +39,7 @@ export default function TodoList() {
                 key={todo._id}
                 removeTodo={removeTodo}
                 toggleComplete={toggleComplete}
+                enableEdit={enableEdit}
               />
             ))}
           </ul>
