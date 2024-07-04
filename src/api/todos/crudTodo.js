@@ -35,14 +35,14 @@ export const addTodoDb = async (todo) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ text: todo }),
+      body: JSON.stringify(todo),
     });
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
     const data = await todo;
-    console.log("Data send:", data.text);
-    return data.text;
+    console.log("Data send:", data);
+    return data;
 
     // catch error
   } catch (error) {
