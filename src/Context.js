@@ -52,14 +52,13 @@ export function TodoProvider({ children }) {
   async function removeTodo(id) {
     const response = await deleteTodoDb(id);
 
-    const newTodos = state.todos.filter((todo) => todo._id !== id);
-    setState((prev) => ({
-      ...prev,
-      todos: newTodos,
-    }));
-    // if (response.status >= 200 && response.status <= 299) {
-
-    // }
+    if (response) {
+      const newTodos = state.todos.filter((todo) => todo._id !== id);
+      setState((prev) => ({
+        ...prev,
+        todos: newTodos,
+      }));
+    }
   }
 
   // update data

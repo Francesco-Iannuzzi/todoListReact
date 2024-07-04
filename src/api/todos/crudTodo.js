@@ -55,7 +55,7 @@ export const addTodoDb = async (todo) => {
 
 export const deleteTodoDb = async (id) => {
   // recover url
-  const url = `${baseApiOptions.baseUrl}/delete_todo/:id`;
+  const url = `${baseApiOptions.baseUrl}/delete_todo/${id}`;
 
   try {
     const response = await fetch(url, {
@@ -68,8 +68,8 @@ export const deleteTodoDb = async (id) => {
       throw new Error("Network response was not ok");
     }
     const data = await id;
-    console.log("Data delete:", data._id);
-    return data._id;
+    console.log("Data delete:", id);
+    return data;
 
     // catch error
   } catch (error) {
