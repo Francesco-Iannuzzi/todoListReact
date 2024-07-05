@@ -8,7 +8,6 @@ export default function TodoList() {
     theme,
     themeText,
     addTodo,
-    todos,
     removeTodo,
     toggleComplete,
     enableEdit,
@@ -19,10 +18,10 @@ export default function TodoList() {
   } = useContext(TodoContext);
 
   const newColor = theme === "black" ? "white" : "black";
-
   const newColorText = themeText === "white" ? "black" : "white";
+
   return (
-    <div style={{ backgroundColor: theme, color: themeText }}>
+    <div className="p-1" style={{ backgroundColor: theme, color: themeText }}>
       <button
         className="mb-4 btn btn-primary"
         onClick={() => changeTheme(newColor, newColorText)}

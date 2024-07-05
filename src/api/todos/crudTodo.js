@@ -13,7 +13,6 @@ export const getTodos = async () => {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    console.log("Data received from server:", data);
     return data.body;
 
     // catch error
@@ -39,7 +38,6 @@ export const addTodoDb = async (todo) => {
       throw new Error("Network response was not ok");
     }
     const data = await todo;
-    console.log("Data send:", data);
     return data;
 
     // catch error
@@ -64,7 +62,6 @@ export const deleteTodoDb = async (id) => {
       throw new Error("Network response was not ok");
     }
     const data = await id;
-    console.log("Data delete:", id);
     return data;
 
     // catch error
