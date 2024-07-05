@@ -47,11 +47,12 @@ export function TodoProvider({ children }) {
       completed: false,
       isEditing: false,
     };
-    const response = await addTodoDb(todoToSave);
+
+    const { response, newTodo = {} } = await addTodoDb(todoToSave);
     if (response.status >= 200 && response.status <= 299) {
       setState((prev) => ({
         ...prev,
-        todos: [...prev.todos, todoToSave],
+        todos: [...prev.todos, newTodo],
       }));
     }
   }

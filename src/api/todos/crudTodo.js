@@ -37,9 +37,8 @@ export const addTodoDb = async (todo) => {
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
-    const data = await todo;
-    return data;
-
+    const newTodo = await response.json();
+    return { response, newTodo };
     // catch error
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
