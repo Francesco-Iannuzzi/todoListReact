@@ -74,7 +74,7 @@ export const deleteTodoDb = async (id) => {
 };
 
 // complete todo item status
-export const toggleTodoCompletedDb = async (id, completed) => {
+export const toggleTodoCompletedDb = async (id, completed, isEditing) => {
   const url = `${baseApiOptions.baseUrl}/toggle_todo`;
 
   try {
@@ -83,7 +83,7 @@ export const toggleTodoCompletedDb = async (id, completed) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id, completed }),
+      body: JSON.stringify({ id, completed, isEditing }),
     });
     if (!response.ok) {
       throw new Error("Network response was not ok");
@@ -104,6 +104,27 @@ export const isEditingTodoDb = async (id, isEditing) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ id, isEditing }),
+    });
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+};
+
+// update todo text
+export const updateTodoTextDb = async (id, text) => {
+  const url = `${baseApiOptions.baseUrl}/edit_todo_text`;
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id, text }),
     });
     if (!response.ok) {
       throw new Error("Network response was not ok");

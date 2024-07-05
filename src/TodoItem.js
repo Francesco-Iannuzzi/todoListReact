@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function TodoItem({
   todo,
@@ -7,6 +7,16 @@ export default function TodoItem({
   enableEdit,
   handleText,
 }) {
+  const [editText, setEditText] = useState(todo.text);
+
+  const handleEditTextChange = (e) => {
+    setEditText(e.target.value);
+  };
+
+  const handleEditTextSave = () => {
+    handleText(todo._id, editText);
+    enableEdit(todo._id, false);
+  };
   return (
     <li className="list-group-item d-flex justify-content-between align-items-center">
       <div style={{ textDecoration: todo.completed ? "line-through" : "none" }}>
@@ -14,9 +24,15 @@ export default function TodoItem({
           <input
             className="form-control border border-2"
             type="text"
-            value={todo.text}
+            value={editText}
             id="editText"
-            onChange={() => handleText(todo.text)}
+            onChange={handleEditTextChange}
+            onBlur={handleEditTextSave}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleEditTextSave();
+              }
+            }}
           />
         ) : (
           todo.text

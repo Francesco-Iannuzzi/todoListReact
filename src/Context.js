@@ -5,6 +5,7 @@ import {
   deleteTodoDb,
   toggleTodoCompletedDb,
   isEditingTodoDb,
+  updateTodoTextDb,
 } from "./api/todos/crudTodo";
 
 const TodoContext = createContext();
@@ -69,13 +70,13 @@ export function TodoProvider({ children }) {
   }
 
   // change complete status todo
-  async function toggleComplete(id, completed) {
-    const response = await toggleTodoCompletedDb(id, completed);
+  async function toggleComplete(id, completed, isEditing) {
+    const response = await toggleTodoCompletedDb(id, completed, isEditing);
     if (response) {
       setState((prev) => ({
         ...prev,
         todos: prev.todos.map((todo) =>
-          todo._id === id ? { ...todo, completed } : todo
+          todo._id === id ? { ...todo, completed, isEditing } : todo
         ),
       }));
     }
@@ -94,8 +95,8 @@ export function TodoProvider({ children }) {
     }
   }
 
-  async function handleText(text) {
-    const response = await changeTextTodoDb(text);
+  async function handleText(id, text) {
+    const response = await updateTodoTextDb(id, text);
     if (response) {
       setState((prev) => ({
         ...prev,
